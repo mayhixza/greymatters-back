@@ -2,12 +2,11 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5001;
 const cookieParser = require("cookie-parser");
-const bodyParser = require("body-parser");
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
+const Grid = require("gridfs-stream");
 
 const mongoose = require("mongoose");
-const DB_URL = "mongodb+srv://mayhixza:andhiispagl@cluster0.g5gcp.mongodb.net/greymatterssite";
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -16,11 +15,16 @@ dotenv.config();
 
 const authRoute = require("./middleware/authRoute");
 
-// const Grid = require("gridfs-stream");
-
-
 // Database Connection
 mongoose.connect(process.env.DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+
+// Gridfs Settings
+const conn = mongoose.connection;
+let gfs;
+conn.once('open', () => {
+    gfs = Grid(conn.db, mongoose.mongo);
+    gfs.collection("fs");
+});
 
 // App Settings
 
