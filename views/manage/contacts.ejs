@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin- Manage contacts</title>
+</head>
+<body>
+    <h1>List of contacts here</h1>
+    <a href="/admin/add-contacts">add contacts</a>
+    <% for (let contact of contacts) { %>
+        <h3><%= contact.post %></h3>
+            <a href="/admin/edit-contact/<%= contact._id %>">Edit</a>
+            <a href="/admin/delete-contact/<%= contact._id %>">Delete</a>
+    <% } %>
+</body>
+</html>

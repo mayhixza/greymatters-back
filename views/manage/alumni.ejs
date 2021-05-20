@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin- Manage alumni</title>
+</head>
+<body>
+    <h1>List of alumnis here</h1>
+    <a href="/admin/add-alumni">add alumni</a>
+    <% for (let alumni of alumnis) { %>
+        <h3><%= alumni.name %></h3>
+            <a href="/admin/delete-alumni/<%= alumni._id %>">Delete</a>
+            <a href="/admin/edit-alumni/<%= alumni._id %>">Edit</a>
+        <hr>
+    <% } %>
+</body>
+</html>
