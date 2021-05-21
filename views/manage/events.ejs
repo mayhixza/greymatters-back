@@ -7,6 +7,12 @@
 </head>
 <body>
     <h1>List of events here</h1>
-    <a href="/admin/add-events">add events</a>
+    <a href="/admin/events/add">add events</a>
+    <% for (let event of events) { %>
+        <h3><%= event.title %></h3>
+            <a href="/admin/events/delete/<%= event._id %>">Delete</a>
+            <a href="/admin/events/edit/<%= event._id %>">Edit</a>
+    <% } %>
+    <hr>
 </body>
 </html>

@@ -11,8 +11,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// Middleware Functions
-
+// Middleware Function
 const authRoute = require("./middleware/authRoute");
 
 // Database Connection
@@ -45,7 +44,15 @@ const login = require("./routes/auth/login");
 app.use("/login", login);
 
 const logout = require("./routes/auth/logout");
-app.use("/logout", authRoute, logout);
+app.use("/logout", authRoute, logout);  
+
+const events = require("./routes/admin/events")
+app.use("/admin/events", events)
+
+// Errors
+app.get("*", (req, res) => {
+    res.render("client/404");
+});
 
 // Sign up
 

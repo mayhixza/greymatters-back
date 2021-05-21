@@ -7,5 +7,12 @@
 </head>
 <body>
     <h1>Page to add events</h1>
+    <form action="/admin/events/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="title">
+        <br>
+        <textarea name="content" cols="30" placeholder="Content" rows="10"></textarea>
+        <input type="file" required name="img" accept="image/*">
+        <button type="submit">Submit</button>
+    </form>
 </body>
 </html>
