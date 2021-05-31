@@ -1,24 +1,33 @@
 const express = require("express");
 const router = express.Router();
 
+const Alumni = require("../../models/alumni");
+const Contacts = require("../../models/contacts");
+const Members = require("../../models/members");
+const Events = require("../../models/events");
+
 router.get("/", (req, res) => {
     res.render("client/home");
 })
 
-router.get("/alumni", (req, res) => {
-    res.render("client/alumni");
+router.get("/alumni", async (req, res) => {
+    let alumnis = await Alumni.find()
+    res.json({alumnis: alumnis});
 })
 
-router.get("/events", (req, res) => {
-    res.render("client/events");
+router.get("/events", async (req, res) => {
+    let events = await Events.find()
+    res.json({events: events});
 })
 
-router.get("/contacts", (req, res) => {
-    res.render("client/contacts");
+router.get("/contacts", async (req, res) => {
+    let contacts = await Contacts.find()
+    res.json({contacts: contacts});
 })
 
-router.get("/members", (req, res) => {
-    res.render("client/members")
+router.get("/members", async (req, res) => {
+    let members = await Members.find()
+    res.json({members: members});
 })
 
 module.exports = router;
