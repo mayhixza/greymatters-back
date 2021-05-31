@@ -6,7 +6,7 @@
     const jwt = require("jsonwebtoken");
     const Grid = require("gridfs-stream");
     const cors = require("cors");
-    const bodyParser = require("body-parser")
+    const bodyParser = require("body-parser");
 
     const mongoose = require("mongoose");
 
@@ -32,6 +32,7 @@
     app.set("view engine", "ejs");
     app.use(express.json());
     app.use(bodyParser.json());
+    app.use(cors({origin: "*",}));
     app.use(express.urlencoded({ extended: false }));
     app.use(cookieParser());
     app.use(express.static(__dirname + '/public'));
