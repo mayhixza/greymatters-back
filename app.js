@@ -41,6 +41,18 @@
     const client = require("./routes/client/client")
     app.use("/", client);
 
+    // Imgs
+    app.get("/img/:filename", (req, res) => {
+        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+            if (err) {
+                res.send(err);
+            } else {
+                const readstream = gfs.createReadStream(file.filename);
+                readstream.pipe(res);
+            }
+        });
+    });
+
     const admin = require("./routes/admin/admin");
     app.use("/admin", authRoute, admin);
 
