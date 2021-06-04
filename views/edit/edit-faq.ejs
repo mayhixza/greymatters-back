@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Edit Faq</title>
+</head>
+<body>
+    <h1>Edit faq</h1>
+    <form action="/admin/edit-faq/<%= faq._id %>?_method=PUT" method="POST">
+        <input type="text" name="question" value="<%= faq.question %>">
+        <input type="text" name="answer" value="<%= faq.answer %>">
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

@@ -4,6 +4,7 @@ const router = express.Router();
 const Alumni = require("../../models/alumni");
 const Contacts = require("../../models/contacts");
 const Members = require("../../models/members");
+const Faq = require("../../models/faq");
 
 const methodOverride = require('method-override');
 const multer = require("multer");
@@ -55,9 +56,10 @@ router.get("/contacts", async (req, res) => {
     res.render("manage/contacts", {contacts: contacts});
 })
 
-// router.get("/events", (req, res) => {
-//     res.render("manage/events");
-// })
+router.get("/faq", async (req, res) => {
+    let faqs = await Faq.find();
+    res.render("manage/faqs", { faqs: faqs });
+  });
 
 router.get("/members", async (req, res) => {
     let members = await Members.find();
@@ -147,6 +149,26 @@ router.post("/add-contact", async (req, res) => {
 //     res.render("add/add-events");
 // })
 
+router.get("/add-faq", (req, res) => {
+    res.render("add/add-faq");
+  });
+
+router.post("/add-faq", async (req, res) => {
+    let body = req.body;
+  
+    let faq = new Faq({
+      question: body.question,
+      answer: body.answer,
+    });
+  
+    try {
+      faq.save();
+      res.redirect("/admin/faq");
+    } catch (err) {
+      res.send(err);
+    }
+});
+
 router.get("/add-members", (req, res) => {
     res.render("add/add-members");
 })
@@ -222,6 +244,11 @@ router.get("/delete-alumni/:id", async (req, res) => {
 router.get("/delete-contact/:id", async (req, res) => {
     await Contacts.deleteOne({ _id: req.params.id });
     res.redirect("/admin/contacts");
+});
+
+router.get("/delete-faq/:id", async (req, res) => {
+    await Faq.deleteOne({ _id: req.params.id });
+    res.redirect("/admin/faq");
 });
 
 router.get("/delete-member/:id", async (req, res) => {
@@ -328,6 +355,24 @@ router.put("/edit-contact/:id", async (req, res) => {
         }
     });
     res.redirect("/admin/contacts");
+});
+
+router.get("/edit-faq/:id", async (req, res) => {
+    let faq = await Faq.findById(req.params.id);
+    res.render("edit/edit-faq", { faq: faq });
+});
+
+router.put("/edit-faq/:id", async (req, res) => {
+    await Faq.updateOne(
+      { _id: req.params.id },
+      {
+        $set: {
+          question: req.body.question,
+          answer: req.body.answer,
+        },
+      }
+    );
+    res.redirect("/admin/faq");
 });
 
 router.get("/edit-members/:id", async (req, res) => {

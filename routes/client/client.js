@@ -5,6 +5,7 @@ const Alumni = require("../../models/alumni");
 const Contacts = require("../../models/contacts");
 const Members = require("../../models/members");
 const Events = require("../../models/events");
+const Faq = require("../../models/faq");
 
 router.get("/", (req, res) => {
     res.render("client/home");
@@ -28,6 +29,11 @@ router.get("/contacts", async (req, res) => {
 router.get("/members", async (req, res) => {
     let members = await Members.find()
     res.json({members: members});
+})
+
+router.get("/faq", async (req, res) => {
+    let faqs = await Faq.find()
+    res.json({faqs: faqs});
 })
 
 module.exports = router;

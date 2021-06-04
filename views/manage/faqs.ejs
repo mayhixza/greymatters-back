@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin- Manage Faqs</title>
+</head>
+<body>
+    <h1>List of faqs here</h1>
+    <a href="/admin/add-faq">add faqs</a>
+    <% for (let faq of faqs) { %>
+        <h3><%= faq.question %></h3>
+        <a href="/admin/edit-faq/<%= faq._id %>">Edit</a>
+        <a href="/admin/delete-faq/<%= faq._id %>">Delete</a>
+    <% } %>
+    <hr>
+</body>
+</html>
