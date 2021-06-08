@@ -14,6 +14,9 @@ const EventSchema = new Schema({
         type: String,
         required: true
     },
+    link: {
+        type: String
+    },
     image: String
 }, { timestamps: true });
 

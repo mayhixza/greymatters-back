@@ -71,6 +71,7 @@ router.post("/add", upload.single("img"), async (req, res) => {
   let event = new Events({
     title: body.title,
     content: body.content,
+    link: body.link,
     // author: user.name,
     image: filename,
   });
@@ -123,6 +124,7 @@ router.put("/edit/:id", upload.single("img"), async (req, res) => {
               $set: {
                 title: req.body.title,
                 content: req.body.content,
+                link: req.body.link,
                 image: filename,
               },
             }
@@ -137,6 +139,7 @@ router.put("/edit/:id", upload.single("img"), async (req, res) => {
         $set: {
           title: req.body.title,
           content: req.body.content,
+          link: req.body.link
         },
       }
     );
