@@ -47,23 +47,28 @@ router.get("/add", (req, res) => {
 
 router.post("/add", upload.single("img"), async (req, res) => {
   // Compress
-  await sharp(req.file.filename)
-    .toFormat("jpeg")
-    .jpeg({ quality: 40, force: true })
-    .toFile("toConvert.jpg");
-  let filename = `${uuid.v4()}-${Date.now()}.jpg`;
-  const writeStream = gfs.createWriteStream(filename);
-  await fs.createReadStream(`./toConvert.jpg`).pipe(writeStream);
-  fs.unlink("toConvert.jpg", (err) => {
-    if (err) {
-      res.send(err);
-    }
-  });
-  fs.unlink(`${req.file.filename}`, (err) => {
-    if (err) {
-      res.send(err);
-    }
-  });
+
+  if (req.file.mimetype !== "svg" || req.file.mimetype !== "svg+xml") {
+    await sharp(req.file.filename)
+      .toFormat("jpeg")
+      .jpeg({ quality: 40, force: true })
+      .toFile("toConvert.jpg");
+    let filename = `${uuid.v4()}-${Date.now()}.jpg`;
+    const writeStream = gfs.createWriteStream(filename);
+    await fs.createReadStream(`./toConvert.jpg`).pipe(writeStream);
+    fs.unlink("toConvert.jpg", (err) => {
+      if (err) {
+        res.send(err);
+      }
+    });
+    fs.unlink(`${req.file.filename}`, (err) => {
+      if (err) {
+        res.send(err);
+      }
+    });
+  } else {
+    let filename = req.file.filename;
+  }
 
   let body = req.body;
   let user = await User.findById(req.user.id);
@@ -139,7 +144,7 @@ router.put("/edit/:id", upload.single("img"), async (req, res) => {
         $set: {
           title: req.body.title,
           content: req.body.content,
-          link: req.body.link
+          link: req.body.link,
         },
       }
     );

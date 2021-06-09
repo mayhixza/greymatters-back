@@ -68,7 +68,6 @@ router.get("/members", async (req, res) => {
 });
 
 // Add Routes
-
 router.get("/add-alumni", (req, res) => {
   res.render("add/add-alumni");
 });
